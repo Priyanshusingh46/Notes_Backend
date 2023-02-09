@@ -8,9 +8,6 @@ app.use(bodyparser.json());
 app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));
 
-app.get("/",(req,res)=>{
-    res.send("listing");
-})
 app.post("/addnote",async(req,res)=>{
     console.log(req.body);
     try{
@@ -34,4 +31,25 @@ app.get("/getnote",async(req,res)=>{
       res.send("No Data available");
     }
     })
+
+app.get("/updatenote/:id",async(req,res)=>{
+    let result = await Note.findOne({_id:req.params.id});
+    res.send(result);
+})
+
+
+app.put("/updatenote/:id",async(req,res)=>{
+    let result = await Note.updateOne(
+     {_id:req.params.id},
+     {
+       $set:req.body
+     }
+     )
+     res.send(result);
+ })
+
+app.delete("/note/:id",async(req,res)=>{
+    let result = await Note.deleteOne({_id:req.params.id})
+    res.send(result);
+})
 app.listen(5000);

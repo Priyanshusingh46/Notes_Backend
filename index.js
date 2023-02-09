@@ -7,6 +7,7 @@ const bodyparser = require("body-parser");
 app.use(bodyparser.json());
 app.use(cors());
 app.use(bodyparser.urlencoded({ extended: true }));
+const PORT  = process.env.PORT || 5000;
 
 app.post("/addnote",async(req,res)=>{
     console.log(req.body);
@@ -52,4 +53,6 @@ app.delete("/note/:id",async(req,res)=>{
     let result = await Note.deleteOne({_id:req.params.id})
     res.send(result);
 })
-app.listen(5000);
+app.listen(PORT,()=>{
+    console.log(`server started at port no ${PORT}`);
+});

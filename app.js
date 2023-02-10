@@ -29,7 +29,7 @@ app.get("/getnote",async(req,res)=>{
       res.send(result);
     }
     else{
-      res.send("No Data available");
+      res.send(null);
     }
     })
 
